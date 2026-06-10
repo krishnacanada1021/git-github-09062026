@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: ["release/dev", "release/uat" , "release/staging", "release/prod"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["release/dev", "release/uat" , "release/staging", "release/prod"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -19,6 +19,9 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
+    environment:
+      name: ${{github.ref == 'ref/heads/release/dev' && 'dev' || github.ref == 'ref/heads/release/uat' && 'uat' || github.ref == 'ref/heads/release/staging' && 'staging' || github.ref == 'ref/heads/release/prod' && 'prod'}}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -34,3 +37,9 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+
+      - name: Logging ENV & Secret Variables
+        run: |
+          echo "username: ${{ vars.USERNAME }}"
+          echo "password: ${{ secrets.PASSWORD }}"
