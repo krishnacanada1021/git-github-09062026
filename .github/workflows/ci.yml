@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
 
     environment:
-      name: ${{github.ref == 'ref/heads/release/dev' && 'dev' || github.ref == 'ref/heads/release/uat' && 'uat' || github.ref == 'ref/heads/release/staging' && 'staging' || github.ref == 'ref/heads/release/prod' && 'prod'}}
+      name: ${{github.ref == 'refs/heads/release/dev' && 'dev' || github.ref == 'refs/heads/release/uat' && 'uat' || github.ref == 'refs/heads/release/staging' && 'staging' || github.ref == 'refs/heads/release/prod' && 'prod'}}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
